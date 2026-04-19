@@ -1,10 +1,9 @@
 package com.example.hello.controler;
 
 
+import com.example.hello.dto.RequestLogin;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Request:
@@ -37,6 +36,14 @@ public class HelloControler {
     public String login(String id, String pw) {
 
         if (id.equals("skawns521") && pw.equals("1234")) {
+            return "로그인 성공";
+        }
+        return "로그인 실패";
+    }
+
+    @PostMapping("/login")
+    public String signin(@RequestBody RequestLogin login) {
+        if (login.getId().equals("skawns521") && login.getPw().equals("1234")) {
             return "로그인 성공";
         }
         return "로그인 실패";
