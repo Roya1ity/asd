@@ -2,6 +2,8 @@ package com.example.hello.controler;
 
 
 import com.example.hello.dto.RequestLogin;
+import com.example.hello.dto.ResponseUser;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +49,19 @@ public class HelloControler {
             return "로그인 성공";
         }
         return "로그인 실패";
+    }
+    //curl -i -X POST "http://localhost:8090/login" -H "Content-type: application/json" -d "{""id"":""skawns521"",""pw"":""1234""}"
+    //curl -i -X POST "http://localhost:8090/login" -H "Content-type: application/json" -d "{\"id\":\"skawns521\",\"pw\":\"1234\"}"
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<ResponseUser> getUser(@PathVariable Long id) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (id==1) {
+            ResponseUser user = new ResponseUser("1","페이커","faker_T1@naver.com");
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
